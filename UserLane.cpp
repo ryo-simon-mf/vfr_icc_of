@@ -35,7 +35,7 @@ void UserLane::imageUpdate(string _imgPath) {
 
     tmpImage.update();
     mImagePath = _imgPath;
-
+    
 }
 
 void UserLane::update(ofVec2f* _imageSize, string _userName, string _imagePath, string _artistName, string _trackName, vector<int> _coverArtNF) {
@@ -74,7 +74,7 @@ void UserLane::update(ofVec2f* _imageSize, string _userName, string _imagePath, 
 
         ofPushStyle();
         ofFill();
-        ofSetColor(mColor[i], 240);
+        ofSetColor(mColor[i], 120 + 120 * _coverArtNF[i]);
 
         //ofBeginShape();
         //ofVertex(beginPos.x, 180);

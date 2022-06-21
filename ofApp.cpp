@@ -2,6 +2,7 @@
 
 //--------------------------------------------------------------
 void ofApp::setup() {
+    ofHideCursor();
 
     ofSetVerticalSync(false);
     ofSetFrameRate(60);
@@ -25,6 +26,7 @@ void ofApp::setup() {
     passPeaks.resize(laneSize);
     dImage.resize(laneSize);
     dCover.resize(laneSize);
+    slpeeterGain.resize(laneSize);
 
 
 
@@ -36,6 +38,7 @@ void ofApp::setup() {
         CoverArt[i] = "./image/" + to_string(i + 1) + ".png";
         Artist[i] = tmpArtist[i];
         Track[i] = tmpTrack[i];
+        slpeeterGain[i] = 0.0f;
 
         coverArtNF[i].resize(trackSize);
         passPeaks[i].resize(trackSize);
@@ -125,8 +128,8 @@ void ofApp::draw() {
         //Titles
         ofPushStyle();
         ofSetColor(ofColor::white);
-        DinAlter_Title.drawString("Variable Flavor Remix", 60, 120);
-        for (int i = 0; i < trackSize; i++) DinAlter_24.drawString(Spleeter[i], 200 + 80 * (i + 1), 186);
+        DinAlter_Title.drawString("Variable Flavor Remix", 60, 100);
+        for (int i = 0; i < trackSize; i++) DinAlter_24.drawString(Spleeter[i], 200 + 80 * (i + 1), 145);
         ofPopStyle();
 
 
@@ -281,10 +284,15 @@ void ofApp::oscInit() {
             sceneTmp = 1;
         }
 
+
+
         for (int i = 0; i < laneSize; i++) {
             if (m.getAddress() == vecTrackPath[i]) for (int j = 0; j < trackSize; j++) passPeaks[i][j] = m.getArgAsFloat(j);
             if (m.getAddress() == vecTrackPath[i] + "_nf") for (int j = 0; j < trackSize; j++) coverArtNF[i][j] = m.getArgAsInt(j);
+            if (m.getAddress() == vecGainName[i]) slpeeterGain[i] = m.getArgAsFloat(i);
+
         }
+
 
 
 
