@@ -15,18 +15,18 @@
 int main() {
     ofGLFWWindowSettings settings;
 
-    //���C���E�B���h�E�̏����L�q
-    //�E�B���h�E�̕��A����
+    //ÉÅÉCÉìÉEÉBÉìÉhÉEÇÃèÓïÒÇãLèq
+    //ÉEÉBÉìÉhÉEÇÃïùÅAçÇÇ≥
 //    settings.width = 1920;
 //    settings.height = 1080;
     settings.decorated = false;
     settings.setSize(1920, 1080);
-    //�E�B���h�E��\��������W�i����̍��W���w��j
+    //ÉEÉBÉìÉhÉEÇï\é¶Ç∑ÇÈç¿ïWÅiç∂è„ÇÃç¿ïWÇéwíËÅj
     settings.setPosition(ofVec2f(0, 0));
     shared_ptr<ofAppBaseWindow> mainWindow = ofCreateWindow(settings);
 
 
-    //App�̐���
+    //AppÇÃê∂ê¨
     shared_ptr<ofApp> mainApp(new ofApp);
 
     ofRunApp(mainWindow, mainApp);

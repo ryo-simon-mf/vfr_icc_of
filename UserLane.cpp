@@ -76,6 +76,11 @@ void UserLane::update(ofVec2f* _imageSize, string _userName, string _imagePath, 
         ofFill();
         ofSetColor(mColor[i], 240);
 
+        //ofBeginShape();
+        //ofVertex(beginPos.x, 180);
+        //for (unsigned int j = 0; j < mTrackPeaks[i].size(); j++) ofVertex(beginPos.x + j, imageSize.x - mTrackPeaks[i][j] * 180.0f);
+        //ofVertex(beginPos.x + imageSize.x, 180);
+        //ofEndShape(false);
 
         ofDrawRectangle(beginPos.x, 180 - beginPos.y, 60, -1 * ( 10 + 170 * mTrackPeaks[i][179]));
 

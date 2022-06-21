@@ -16,7 +16,7 @@ private:
 
     static const int NUM_PARTICLES = 180 * 180;
     ofVbo myVbo;
-    ofFbo myFbo;    
+    ofFbo myFbo;
     string mImagePath;
 
     ofImage tmpImage;

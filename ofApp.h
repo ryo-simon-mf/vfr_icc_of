@@ -66,7 +66,7 @@ public:
     string tmpArtist[4]{ "Don Steel", "Shoya Matsushita", "Masque", "arome" };
     string tmpTrack[4]{ "Let us do", "Shibuki", "Ce ma Noir", "Cynic" };
 
-    ofVec2f coverArtSize = ofVec2f(180);
+    ofVec2f coverArtSize = ofVec2f(150);
     ofVec2f* mCoverArtSize = &coverArtSize;
 
     float initTime;
