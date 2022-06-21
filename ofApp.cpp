@@ -129,7 +129,11 @@ void ofApp::draw() {
         ofPushStyle();
         ofSetColor(ofColor::white);
         DinAlter_Title.drawString("Variable Flavor Remix", 60, 100);
-        for (int i = 0; i < trackSize; i++) DinAlter_24.drawString(Spleeter[i], 200 + 80 * (i + 1), 145);
+        DinAlter_24.drawString("Gain:", 205, 175);
+        for (int i = 0; i < trackSize; i++) {
+            DinAlter_24.drawString(Spleeter[i], 200 + 80 * (i + 1), 145);
+            ofDrawRectangle(200 + 80 * (i + 1), 155, 50 / 2 * slpeeterGain[i], 35);
+        }
         ofPopStyle();
 
 
@@ -289,7 +293,10 @@ void ofApp::oscInit() {
         for (int i = 0; i < laneSize; i++) {
             if (m.getAddress() == vecTrackPath[i]) for (int j = 0; j < trackSize; j++) passPeaks[i][j] = m.getArgAsFloat(j);
             if (m.getAddress() == vecTrackPath[i] + "_nf") for (int j = 0; j < trackSize; j++) coverArtNF[i][j] = m.getArgAsInt(j);
-            if (m.getAddress() == vecGainName[i]) slpeeterGain[i] = m.getArgAsFloat(i);
+            if (m.getAddress() == vecGainName[i]) {
+                slpeeterGain[i] = m.getArgAsFloat(0);
+                //cout << vecGainName[i] << slpeeterGain[i] << endl;
+            }
 
         }
 

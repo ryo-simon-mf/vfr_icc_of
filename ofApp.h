@@ -62,7 +62,7 @@ public:
 
 
     string vecTrackPath[4]{ "/track_1", "/track_2", "/track_3", "/track_4" };
-    string vecGainName[4]{ "/gain_bass", "/gain_drum", "/gain_other", "/other_vocal" };
+    string vecGainName[4]{ "/gain_bass", "/gain_drum", "/gain_other", "/gain_vocal" };
 
     string tmpUser[4]{ "Kanta", "Chinatsu", "Hirotaka", "Masayuki" };
     string tmpArtist[4]{ "Don Steel", "Shoya Matsushita", "Masque", "arome" };
