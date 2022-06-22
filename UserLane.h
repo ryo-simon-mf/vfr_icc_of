@@ -7,6 +7,8 @@ public:
     ~UserLane() {};
     void setup();
     void getPeaks(vector<float> _getPeaks);
+    void getGains(vector<float> _getGains);
+
     void imageUpdate(string _imgPath);
     void update(ofVec2f* _imageSize, string _userName, string _imagePath, string _artistName, string _trackName, vector<int> _coverArtNF);
 
@@ -29,6 +31,7 @@ private:
 
 
     vector<float> mPeak;
+    vector<float> mGain;
     vector<vector<float>> mTrackPeaks;
 
     ofFbo mFbo;

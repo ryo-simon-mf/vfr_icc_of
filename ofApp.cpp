@@ -3,7 +3,6 @@
 //--------------------------------------------------------------
 void ofApp::setup() {
     ofHideCursor();
-
     ofSetVerticalSync(false);
     ofSetFrameRate(60);
 
@@ -24,9 +23,10 @@ void ofApp::setup() {
     Track.resize(laneSize);
     coverArtNF.resize(laneSize);
     passPeaks.resize(laneSize);
+    passGains.resize(laneSize);
+
     dImage.resize(laneSize);
     dCover.resize(laneSize);
-    slpeeterGain.resize(laneSize);
 
 
 
@@ -38,16 +38,18 @@ void ofApp::setup() {
         CoverArt[i] = "./image/" + to_string(i + 1) + ".png";
         Artist[i] = tmpArtist[i];
         Track[i] = tmpTrack[i];
-        slpeeterGain[i] = 0.0f;
 
         coverArtNF[i].resize(trackSize);
         passPeaks[i].resize(trackSize);
+        passGains[i].resize(trackSize);
 
         dCover[i].setup(coverArtSize.x);
 
         for (int j = 0; j < trackSize; j++) {
             coverArtNF[i][j] = 0;
             passPeaks[i][j] = 0;
+            passGains[i][j] = 0;
+
         }
         dImage[i].load(CoverArt[i]);
         //dImage[i].update();
@@ -80,6 +82,8 @@ void ofApp::update() {
 
     for (int i = 0; i < laneSize; i++) {
         userLane[i].getPeaks(passPeaks[i]);
+        userLane[i].getGains(passGains[i]);
+
         userLane[i].update(mCoverArtSize, UserName[i], CoverArt[i], Artist[i], Track[i], coverArtNF[i]);
 
         //dImage[i].load(CoverArt[i]);
@@ -128,12 +132,8 @@ void ofApp::draw() {
         //Titles
         ofPushStyle();
         ofSetColor(ofColor::white);
-        DinAlter_Title.drawString("Variable Flavor Remix", 60, 100);
-        DinAlter_24.drawString("Gain:", 205, 175);
-        for (int i = 0; i < trackSize; i++) {
-            DinAlter_24.drawString(Spleeter[i], 200 + 80 * (i + 1), 145);
-            ofDrawRectangle(200 + 80 * (i + 1), 155, 50 / 2 * slpeeterGain[i], 35);
-        }
+        DinAlter_Title.drawString("Variable Flavor Remix", 60, 120);
+        for (int i = 0; i < trackSize; i++) DinAlter_24.drawString(Spleeter[i], 200 + 80 * (i + 1), 186);
         ofPopStyle();
 
 
@@ -151,36 +151,36 @@ void ofApp::draw() {
 
     //Debug
 
-    if (calibRect == true) {
-        ofPushStyle();
-        ofNoFill();
-        ofSetColor(ofColor::white);
-        ofVec2f separate = ofVec2f(16, 9);
-        for (int i = 0; i < separate.x; i++) {
-            for (int j = 0; j < separate.y; j++) {
-                ofDrawRectangle(ofGetWidth() / separate.x * i,
-                    ofGetHeight() / separate.y * j,
-                    ofGetWidth() / separate.x,
-                    ofGetHeight() / separate.y);
-            }
-        }
-        ofPopStyle();
-    }
+//    if (calibRect == true) {
+//        ofPushStyle();
+//        ofNoFill();
+//        ofSetColor(ofColor::white);
+//        ofVec2f separate = ofVec2f(16, 9);
+//        for (int i = 0; i < separate.x; i++) {
+//            for (int j = 0; j < separate.y; j++) {
+//                ofDrawRectangle(ofGetWidth() / separate.x * i,
+//                    ofGetHeight() / separate.y * j,
+//                    ofGetWidth() / separate.x,
+//                    ofGetHeight() / separate.y);
+//            }
+//        }
+//        ofPopStyle();
+//    }
 
-    if (cursorpos == true) {
-        ofPushStyle();
-        ofNoFill();
-        ofSetColor(ofColor::white);
-        DinAlter_18.drawString(ofToString(ofGetMouseX())
-            + "\n" + ofToString(ofGetMouseY())
-            + "\n FPS:" + ofToString(ofGetFrameRate())
-            + "\n" + ofToString(sceneTmp)
-            + "\n" + ofToString(info.time)
-            + "\n" + ofToString(nextTrack)
-            , 50, 50);
-        ofPopStyle();
-
-    }
+//    if (cursorpos == true) {
+//        ofPushStyle();
+//        ofNoFill();
+//        ofSetColor(ofColor::white);
+//        DinAlter_18.drawString(ofToString(ofGetMouseX())
+//            + "\n" + ofToString(ofGetMouseY())
+//            + "\n FPS:" + ofToString(ofGetFrameRate())
+//            + "\n" + ofToString(sceneTmp)
+//            + "\n" + ofToString(info.time)
+//            + "\n" + ofToString(nextTrack)
+//            , 50, 50);
+//        ofPopStyle();
+//
+//    }
 
 
 
@@ -288,17 +288,13 @@ void ofApp::oscInit() {
             sceneTmp = 1;
         }
 
-
-
         for (int i = 0; i < laneSize; i++) {
             if (m.getAddress() == vecTrackPath[i]) for (int j = 0; j < trackSize; j++) passPeaks[i][j] = m.getArgAsFloat(j);
-            if (m.getAddress() == vecTrackPath[i] + "_nf") for (int j = 0; j < trackSize; j++) coverArtNF[i][j] = m.getArgAsInt(j);
-            if (m.getAddress() == vecGainName[i]) {
-                slpeeterGain[i] = m.getArgAsFloat(0);
-                //cout << vecGainName[i] << slpeeterGain[i] << endl;
-            }
+            if (m.getAddress() == vecTrackPath[i] + "_gain") for (int j = 0; j < trackSize; j++) passGains[i][j] = m.getArgAsFloat(j);
 
+            if (m.getAddress() == vecTrackPath[i] + "_nf") for (int j = 0; j < trackSize; j++) coverArtNF[i][j] = m.getArgAsInt(j);
         }
+        
 
 
 
