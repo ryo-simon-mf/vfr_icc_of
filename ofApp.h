@@ -59,6 +59,11 @@ public:
     vector<vector<int>> coverArtNF;
     vector<vector<float>> passPeaks;
     vector<vector<float>> passGains;
+    
+    ofColor underQRColor[4] = { ofColor::blue,
+                         ofColor::red,
+                         ofColor::yellow,
+                         ofColor::green };
 
 
     string vecTrackPath[4]{ "/track_1", "/track_2", "/track_3", "/track_4" };

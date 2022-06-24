@@ -87,10 +87,10 @@ void UserLane::update(ofVec2f* _imageSize, string _userName, string _imagePath, 
         
         ofSetColor(mColor[i], 180);
         int gainLevel = 170 / 2 * mGain[i];
-        ofDrawRectangle(beginPos.x, 180 - beginPos.y, 60, -1 * (10 + gainLevel));
+        ofDrawRectangle(beginPos.x, 180 - beginPos.y, 60, -1 * (170));
         
         ofSetColor(mColor[i], 255 * _coverArtNF[i]);
-        ofDrawRectangle(beginPos.x, 180 - beginPos.y, 60, -1 * (10 + gainLevel * mPeak[i]));
+        ofDrawRectangle(beginPos.x, 180 - beginPos.y, 60, -1 * (10 + 170 / 2 * mGain[i]));
 
         ofPopStyle();
 

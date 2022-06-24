@@ -4,7 +4,7 @@
 void ofApp::setup() {
     ofHideCursor();
     ofSetVerticalSync(false);
-    ofSetFrameRate(60);
+    ofSetFrameRate(30);
 
     ofBackground(0);
     ofSetFullscreen(true);
@@ -188,10 +188,25 @@ void ofApp::draw() {
         ofPushStyle();
         ofSetColor(ofColor::white);
         ofVec2f tmpPos = ofVec2f(1560, 428);
-        DinAlter_24.drawString("Read This QR", tmpPos.x, tmpPos.y - 16);
-        QR.draw(tmpPos.x, tmpPos.y, 240, 240);
+        int adjust = 50;
+        DinAlter_24.drawString("Read This QR", tmpPos.x, tmpPos.y - 16 - adjust);
+        QR.draw(tmpPos.x, tmpPos.y - adjust, 240, 240);
         ofPopStyle();
     }
+    
+    ofPushStyle();
+    ofSetColor(ofColor::white);
+    
+    ofVec2f tmpPos = ofVec2f(1560, 428);
+    DinAlter_24.drawString("Pad Status:", tmpPos.x, tmpPos.y - 16 + 260);
+    int adjust = 70;
+    for (int i = 0; i < 4; i++){
+        for (int j = 0; j < 4; j++){
+            ofSetColor(underQRColor[i], 125 + 130 * coverArtNF[j][i]);
+            ofDrawRectangle(tmpPos.x + adjust * i - 10, 260 + tmpPos.y + adjust * j,50,50);
+        }
+    }
+    ofPopStyle();
 
 
 
