@@ -48,7 +48,7 @@ void ofApp::setup() {
         for (int j = 0; j < trackSize; j++) {
             coverArtNF[i][j] = 0;
             passPeaks[i][j] = 0;
-            passGains[i][j] = 0;
+            passGains[i][j] = 1;
 
         }
         dImage[i].load(CoverArt[i]);
